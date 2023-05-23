@@ -1,15 +1,14 @@
 
 import cv2
 import numpy as np 
-from google.colab.patches import cv2_imshow
 
 image=cv2.imread('/content/task.png')
-cv2_imshow(image)
+cv2.imshow(image)
 
 imgray = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)[...,0]
 kernel = np.ones((5, 5), np.uint8)
 img_erosion = cv2.erode(imgray, kernel, iterations=1)
-#im_show(img_erosion)
+#im.imshow(img_erosion)
 ret, thresh = cv2.threshold(img_erosion, 20, 255, cv2.THRESH_BINARY|cv2.THRESH_OTSU)
 mask = 255 - thresh
 contours, hierarchy = cv2.findContours(mask, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_NONE)
@@ -39,5 +38,5 @@ for i in range(len(length)):
  #cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
  cv2.putText(image, str(p+1), (x, y+h+20), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 2)
 
-cv2_imshow(image)
+cv2.imshow(image)
 
